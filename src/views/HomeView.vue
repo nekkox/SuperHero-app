@@ -7,4 +7,5 @@ import ComicsOverview from '@/components/ComicsOverview.vue'
   <main>
     <ComicsOverview />
   </main>
+
 </template>
