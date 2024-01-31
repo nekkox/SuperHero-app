@@ -7,11 +7,14 @@ console.log($props.comic);
 <template>
     <CardView>
         <template v-slot:header>
-            {{ $props.comic.title }}
+            {{ $props.comic.name }}
         </template>
 
         <template v-slot:default>
-        <img class="aspect-[150/228] shadow-xl mr-4" :src="`${$props.comic.thumbnail.path}.${$props.comic.thumbnail.extension}`" width="150"/>    
+        <img 
+        class="aspect-[150/228] shadow-xl mr-4 float-left" 
+        :src="`${$props.comic.thumbnail.path}.${$props.comic.thumbnail.extension}`" 
+        width="150"/>    
         </template>
 
     </CardView>
