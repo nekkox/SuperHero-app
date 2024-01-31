@@ -1,13 +1,13 @@
 <script setup>
 import CardView from '@/components/CardView.vue'
 const $props = defineProps(['comic'])
-console.log($props.comic);
+
 </script>
 
 <template>
     <CardView>
         <template v-slot:header>
-            {{ $props.comic.name }}
+          <p class="mb-5">  {{ $props.comic.title }} </p>
         </template>
 
         <template v-slot:default>

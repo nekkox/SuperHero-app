@@ -1,25 +1,46 @@
 <script setup>
 import { useComics } from '@/composables/useComics'
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import LoadingIcon from '@/components/LoadingIcon.vue'
-
 import ComicCard from '@/components/ComicCard.vue'
-
+import Pagination from '@/components/Pagination.vue'
+import { useRoute, useRouter } from "vue-router";
 
 const data = ref()
 const isLoading = ref()
+const currentPage = ref(0)
+const totalPages = ref(0)
+const $route = useRoute();
+const $router = useRouter();
 
-const getComics = async () => {
+const getComics = async (page = currentPage.value) => {
     isLoading.value = true;
-    const comics = await useComics();
+    const comics = await useComics(page);
+    { { console.log(comics) } }
+
+    currentPage.value = comics?.offset / comics?.limit || 1;
+    totalPages.value = Math.ceil(comics.total / comics.limit);
+    console.log(currentPage.value, totalPages.value);
+
     data.value = comics.results;
     isLoading.value = false;
 };
 
 onMounted(async () => {
-    getComics()
+    getComics(+currentPage.value)
 
 })
+
+if ($route.params.page) {
+    currentPage.value = $route.params.page
+}
+
+watch(
+    () => $route.params.page,
+    async (newPage) => {
+        await getComics(+newPage);
+    }
+);
 
 </script>
 
@@ -29,11 +50,12 @@ onMounted(async () => {
             <LoadingIcon text="Loading comics" />
         </div>
         <div v-if="data && !isLoading">
-            <div class="grid grid-flow-row grid-cols-1 gap-4 text-center md:grid-cols-2	lg:grid-cols-4">
+            <div class="mb-9 grid grid-flow-row grid-cols-1 gap-4 text-center md:grid-cols-2 lg:grid-cols-4">
 
                 <ComicCard v-for="comic in data" :key="comic.id" :comic="comic" />
-               
             </div>
+
+            <Pagination :total-pages="totalPages" path="/" :current-page="+currentPage"></Pagination>
         </div>
     </div>
 </template>
