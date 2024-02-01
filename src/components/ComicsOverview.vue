@@ -1,5 +1,5 @@
 <script setup>
-import { useComics } from '@/composables/useComics'
+import { useComics, useMarvelAPI } from '@/composables/useComics'
 import { ref, onMounted, watch } from 'vue';
 import LoadingIcon from '@/components/LoadingIcon.vue'
 import ComicCard from '@/components/ComicCard.vue'
@@ -15,7 +15,8 @@ const $router = useRouter();
 
 const getComics = async (page = currentPage.value) => {
     isLoading.value = true;
-    const comics = await useComics(page);
+    //const comics = await useComics(page);
+    const comics = await useMarvelAPI('comics',{page:page, query:''});
     { { console.log(comics) } }
 
     currentPage.value = comics?.offset / comics?.limit || 1;
@@ -28,6 +29,7 @@ const getComics = async (page = currentPage.value) => {
 
 onMounted(async () => {
     getComics(+currentPage.value)
+    //useMarvelAPI('comics',{page:+currentPage.value, query:''});
 
 })
 
