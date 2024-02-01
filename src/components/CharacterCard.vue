@@ -1,9 +1,13 @@
 <script setup>
 import CardView from '@/components/CardView.vue'
+
 const $props = defineProps(['character'])
 </script>
 
 <template>
+
+
+
     <CardView :id="$props.character.id">
 
         <img :src="`${$props.character.thumbnail.path}.${$props.character.thumbnail.extension}`"
