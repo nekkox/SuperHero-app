@@ -16,7 +16,8 @@ const $router = useRouter();
 const getComics = async (page = currentPage.value) => {
     isLoading.value = true;
     //const comics = await useComics(page);
-    const comics = await useMarvelAPI('comics',{page:page, query:''});
+    //const comics = await useMarvelAPI('comics',{page:page, query:''});
+    const comics = await useComics(page)
     { { console.log(comics) } }
 
     currentPage.value = comics?.offset / comics?.limit || 1;
@@ -25,6 +26,7 @@ const getComics = async (page = currentPage.value) => {
 
     data.value = comics.results;
     isLoading.value = false;
+    console.log(useComics(page));
 };
 
 onMounted(async () => {

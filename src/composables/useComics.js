@@ -17,6 +17,44 @@ function Api_Sign() {
   }
 
 
+  export async function useMarvelAPI (path, options={}){
+    const pagination = getPagination(options.page)
+    const query = getQuery(options.query)
+
+    const requestURI = getRequestUri(path,query, pagination)
+
+    return useFetch(requestURI);
+}
+
+export async function useFetch(requestURI){
+    const res = await fetch(requestURI)
+    if(!res.ok){
+        throw new Error('Data fetch error')
+    }
+    const jsonRes = await res.json();
+    return jsonRes.data
+}
+
+
+function getPagination(page) {
+    return page ? `&offset=${page * ITEMS_PER_PAGE}` : ''
+  }
+  
+  function getQuery(query) {
+    return query ? `&${query}` : ''
+  }
+  
+  function getRequestUri(path, pagination, query) {
+  
+    const apiPath = `${MARVEL_API_URL}/${path}`
+    return `${apiPath}?${API_SIGN}${query}${pagination}`;
+  
+  }
+
+  
+
+
+
 function createURL(param) {
   const ts = Date.now()
   const params = new URLSearchParams({
@@ -32,53 +70,49 @@ function createURL(param) {
 }
 
 export const useComics = async (page = 1) => {
-  const param = 'comics'
-  const pagination = page ? `&offset=${page * ITEMS_PER_PAGE}` : ''
-  const res = await fetch(createURL(param) + pagination)
-  const jsonRes = await res.json()
-  console.log(jsonRes)
+  //const param = 'comics'
+  //const pagination = page ? `&offset=${page * ITEMS_PER_PAGE}` : ''
+  //const res = await fetch(createURL(param) + pagination)
+ // const jsonRes = await res.json()
+ 
 
-  const res2 = await fetch(getRequestUri('comics','', getPagination(4)))
-  console.log(res2)
-  console.log(Api_Sign());
-  console.log(API_SIGN);
-  return jsonRes.data
-}
+ // const res2 = await fetch(getRequestUri('comics','', getPagination(4)))
+ 
 
-function getPagination(page) {
-  return page ? `&offset=${page * ITEMS_PER_PAGE}` : ''
-}
-
-function getQuery(query) {
-  return query ? `&${query}` : ''
-}
-
-function getRequestUri(path, pagination, query) {
-
-  const apiPath = `${MARVEL_API_URL}/${path}`
-  return `${apiPath}?${API_SIGN}${query}${pagination}`;
-
-}
-
-export async function useFetch(requestURI){
-    const res = await fetch(requestURI)
-    const jsonRes = await res.json();
-    return jsonRes.data
+  try{
+    return await useMarvelAPI('comics',{page:page, query:''});
+  }catch{
+    throw new Error('An error occurred while trying to read comics');
+  }
+ 
+  //return jsonRes.data
 }
 
 
-export async function useMarvelAPI (path, options={}){
-    const pagination = getPagination(options.page)
-    const query = getQuery(options.query)
-    const requestURI = getRequestUri(path,query, pagination)
-    console.log(requestURI);
-    console.log(options);
-    console.log(await useFetch(requestURI));
-    return useFetch(requestURI);
-}
+
+
+
+
+
+
+
+
+
 
 
   const ApiOptions = {
     query:null,
     page: null, 
+  }
+
+function dots(){
+
+    for(let i=0 ; i<=9; i++){
+        let abc = '*'
+        for(let j=0; j<i; j++){
+            abc += '*'
+            
+        }
+        console.log(abc);
+    }
   }
