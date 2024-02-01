@@ -1,5 +1,8 @@
+<script setup>
+import SearchCharacter from '@/components/SearchCharacter.vue';
+</script>
 <template>
     <div class="search">
-    <h1>This is a search page</h1>
+        <SearchCharacter />
     </div>
-    </template>
+</template>

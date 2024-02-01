@@ -6,6 +6,7 @@ import ComicCard from '@/components/ComicCard.vue'
 import Pagination from '@/components/Pagination.vue'
 import { useRoute } from "vue-router";
 
+
 const data = ref()
 const isLoading = ref()
 const currentPage = ref(0)
@@ -25,6 +26,8 @@ const getComics = async (page = currentPage.value) => {
 
 onMounted(async () => {
     getComics(+currentPage.value)
+    console.log(totalPages.value);
+
 })
 
 if ($route.params.page) {
@@ -37,11 +40,12 @@ watch(
         await getComics(+newPage);
     }
 );
-
+console.log(data.value);
 </script>
 
 <template>
     <div>
+        {{ data }}
         <div v-if="isLoading">
             <LoadingIcon text="Loading comics" />
         </div>

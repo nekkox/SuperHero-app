@@ -57,3 +57,11 @@ export const useComics = async (page = 1) => {
     throw new Error('An error occurred while trying to read comics')
   }
 }
+
+export async function useCharacterSearch(query, page = 1){
+  try {
+  return await useMarvelAPI('characters', { page: page, query: `nameStartsWith=${query}` });
+  } catch {
+    throw new Error('An error occurred while trying to read searched characters')
+  }
+}
