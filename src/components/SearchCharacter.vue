@@ -44,12 +44,19 @@ watch(
     }
 );
 
+const name = ref('')
+
+function search($event){
+    console.log('xxx', $event);
+    name.value='vego'
+}
+
 
 </script>
 
 <template>
 
-    <h1>search</h1>
-    <SearchForm :isSearching="isSearching"/>
+    <h1>search {{ name}}</h1>
+    <SearchForm :isSearching="isSearching" @searchSubmit="search"/>
     <CharacterCard v-for="character in data" :key="character.id" :character="character" />
 </template>
