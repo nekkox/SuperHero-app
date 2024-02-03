@@ -13,6 +13,7 @@ const currentPage = ref(0)
 const totalPages = ref(0)
 const $route = useRoute();
 
+
 const getComics = async (page = currentPage.value) => {
     isLoading.value = true;
     const comics = await useComics(page)
@@ -45,7 +46,7 @@ console.log(data.value);
 
 <template>
     <div>
-        {{ data }}
+        
         <div v-if="isLoading">
             <LoadingIcon text="Loading comics" />
         </div>

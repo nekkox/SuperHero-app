@@ -58,7 +58,7 @@ export const useComics = async (page = 1) => {
   }
 }
 
-export async function useCharacterSearch(query, page = 1){
+export async function useCharacterSearch(query, page = 0){
   try {
   return await useMarvelAPI('characters', { page: page, query: `nameStartsWith=${query}` });
   } catch {

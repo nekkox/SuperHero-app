@@ -10,13 +10,15 @@ const $props = defineProps(['character'])
 
     <CardView :id="$props.character.id">
 
-        <img :src="`${$props.character.thumbnail.path}.${$props.character.thumbnail.extension}`"
-            class="float-left w-12 h-12 mb-2 mr-4 rounded-fullshadow-md aspect-square" />
-
         <template v-slot:header>
-            <p class="mb-5"> {{ $props.character.name }} </p>
+            <p class="mb-3 clear-both"> {{ $props.character.name }} </p>
         </template>
 
-        <div class="text-base max-w-prose">{{ $props.character.description }}</div>
+        <img class="float-left w-12 h-12 mb-2 mr-4 rounded-fullshadow-md aspect-square" :src="`${$props.character.thumbnail.path}.${$props.character.thumbnail.extension}`" />
+
+        
+
+        <div v-if="$props.character.description" class="text-base max-w-prose">{{ $props.character.description }}</div>
+    
     </CardView>
 </template>

@@ -17,7 +17,6 @@ function debouncedSearch(){
     clearTimeout(timeout)
     timeout = setTimeout(async ()=>{
         search();
-        console.log('xxx',timeout);
     },1000)
 }
 
