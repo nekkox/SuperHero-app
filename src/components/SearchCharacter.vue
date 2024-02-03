@@ -56,18 +56,20 @@ watch(searchQuery, async (newValue, oldValue) => {
         <SearchForm :isSearching="isSearching" @searchSubmit="search" />
         <LoadingIcon v-if="isSearching" :text="`Searching by '${searchQuery}'...`"></LoadingIcon>
 
-        <div>
+        <div v-if="data && data.length > 0 && !isSearching">
 
 
-            <div>
+            <div class="grid grid-flow-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:md:grid-cols-4 gap-4">
                 <CharacterCard v-for="character in data" :key="character.id" :character="character" />
             </div>
             <Pagination></Pagination>
         </div>
 
-        <div>
-            <div>
-                <p>Nothing found</p>
+        <div 
+        v-if="searchQuery && data && data.length === 0 && !isSearching" 
+        class="flex flex-col justify-center items-center p-4 pt-16 min-h-min min-w-screen">
+            <div class="mb-4">
+                <p>Nothing found for <em class="text-red-600 font-bold">{{ searchQuery }}</em></p>
             </div>
         </div>
 
