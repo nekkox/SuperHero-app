@@ -17,8 +17,9 @@ const $route = useRoute();
 const getComics = async (page = currentPage.value) => {
     isLoading.value = true;
     const comics = await useComics(page)
+    console.log(comics);
 
-    currentPage.value = comics?.offset / comics?.limit || 1;
+    currentPage.value = comics?.offset / comics?.limit || 0;
     totalPages.value = Math.ceil(comics.total / comics.limit);
 
     data.value = comics.results;
@@ -31,9 +32,11 @@ onMounted(async () => {
 
 })
 
+/*
 if ($route.params.page) {
     currentPage.value = $route.params.page
 }
+*/
 
 watch(
     () => $route.params.page,
@@ -41,12 +44,11 @@ watch(
         await getComics(+newPage);
     }
 );
-console.log(data.value);
 </script>
 
 <template>
     <div>
-        
+
         <div v-if="isLoading">
             <LoadingIcon text="Loading comics" />
         </div>
@@ -56,7 +58,7 @@ console.log(data.value);
                 <ComicCard v-for="comic in data" :key="comic.id" :comic="comic" />
             </div>
 
-            <Pagination :total-pages="totalPages" path="/" :current-page="+currentPage"></Pagination>
+            <Pagination :total-pages="totalPages" path="/" :current-offset="+currentPage"></Pagination>
         </div>
     </div>
 </template>

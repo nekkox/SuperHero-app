@@ -37,7 +37,8 @@ export async function useFetch(requestURI) {
 }
 
 function getPagination(page) {
-  return page ? `&offset=${page * ITEMS_PER_PAGE}` : ''
+  let offsetx = page * ITEMS_PER_PAGE - 20
+  return page ? `&offset=${offsetx}` : ''
 }
 
 function getQuery(query) {
@@ -50,7 +51,7 @@ function getRequestUri(path, pagination, query) {
 }
 
 //Main function for fetch comics data
-export const useComics = async (page = 1) => {
+export const useComics = async (page = 0) => {
   try {
     return await useMarvelAPI('comics', { page: page, query: '' })
   } catch {
@@ -58,9 +59,9 @@ export const useComics = async (page = 1) => {
   }
 }
 
-export async function useCharacterSearch(query, page = 0){
+export async function useCharacterSearch(query, page = 0) {
   try {
-  return await useMarvelAPI('characters', { page: page, query: `nameStartsWith=${query}` });
+    return await useMarvelAPI('characters', { page: page, query: `nameStartsWith=${query}` })
   } catch {
     throw new Error('An error occurred while trying to read searched characters')
   }

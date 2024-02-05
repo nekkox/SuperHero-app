@@ -1,15 +1,11 @@
 <script setup>
 import { useRoute } from 'vue-router';
 const $route = useRoute()
-const $props = defineProps(['totalPages', 'currentOffset', 'path'])
-
-//const isOnFirstPage = $props.currentPage === 0;
-//const isOnLastPage = $props.currentPage === $props.totalPages;
+const $props = defineProps(['totalPages', 'currentOffset', 'path', 'currentPage'])
 
 const isOnFirstPage = $route.params.page == 1;
 const isOnLastPage = $route.params.page == $props.totalPages;
 
-console.log($props);
 </script>
 
 <template>
@@ -26,19 +22,18 @@ console.log($props);
         <span
             class="mr-4 text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
             <RouterLink :to="`${path}${$route.params.page - 1}`" v-if="!isOnFirstPage">
-                Previous {{ $route.params.page - 1 }}</RouterLink>
+                Previous</RouterLink>
             <span v-else class="opacity-50" aria-hidden="true">Previous</span>
         </span>
 
         <!---------------------- CURENT & TOTALPAGES -------------------->
-        <span class="font-semibold">Page {{ $props.currentOffset + 1 }} of {{ totalPages }}</span>
+        <span class="font-semibold">Page {{ $props.currentPage }} of {{ totalPages }}</span>
 
 
         <!---------------------- NEXT -------------------->
         <span
             class="ml-4 text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-            <RouterLink :to="`${path}${$props.currentOffset + 2}`" v-if="!isOnLastPage">Next {{ $props.currentOffset + 1 }}
-            </RouterLink>
+            <RouterLink :to="`${path}${$props.currentPage + 1}`" v-if="!isOnLastPage">Next</RouterLink>
             <span v-else class="opacity-50" aria-hidden="true">Next</span>
         </span>
 
