@@ -1,10 +1,26 @@
 # superhero-app
 
-This template should help get you started developing with Vue 3 in Vite.
+This project is simple app that is fetching data from Marvel Api.  
+Beside simple fetching and showing data from an Marvel Api, there is also a  dynamic character searching function. 
+
+---
+
+## Tchnologies
+- Vue 3
+- Vue-Router
+- Vite
+- Tailwind
+
+## Used Libraries
+
+- js-md5 (MD5 hash function)
+- mitt (for global events)
+
+
 
 ## Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+[VSCode](https://code.visualstudio.com/) 
 
 ## Customize configuration
 
